@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CLUSTER_NAME=useast1-demo.apacheclusters.com
+CLUSTER_NAME=useast1-demo.apache1clusters.com
 KOPS_STATE_STORE=apache-kops-state-bucket
 
 kops edit cluster            \

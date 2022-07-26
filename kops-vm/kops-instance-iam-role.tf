@@ -1,17 +1,11 @@
-# Terraform configuration file for provisioning the kops-vm iam role
-#===================================================================
-# This role will give the kops-vm the required permiisions to create k8s clusters in an aws account.
-#===================================================================================================
-# Steps:
-#=======
-# Create iam role (+ assume role policy)
-# Create iam role policy with the following iam permissions:
+
+# Create iam role policy with the following aws managed iam policies:
 #   - AmazonS3FullAccess 
 #   - AmazonEC2FullAccess 
 #   - AmazonRoute53FullAccess 
 #   - IAMFullAccess 
 #   - AmazonVPCFullAccess 
-#=============================================================================================================
+#===============================================================================
 
 
 resource "aws_iam_role" "server_role" {
@@ -36,6 +30,61 @@ data "aws_iam_policy_document" "server_assume_role" {
   }
 }
 
+
+data "aws_iam_policy" "AmazonEC2FullAccess" {
+  arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
+data "aws_iam_policy" "AmazonRoute53FullAccess" {
+  arn = "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
+}
+
+data "aws_iam_policy" "AmazonS3FullAccess" {
+  arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
+data "aws_iam_policy" "IAMFullAccess" {
+  arn = "arn:aws:iam::aws:policy/IAMFullAccess"
+}
+
+data "aws_iam_policy" "AmazonVPCFullAccess" {
+  arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess"
+}
+
+
+/*
+ *** all of the users/roles/groups to which a single policy is attached must be declared by 
+     a single aws_iam_policy_attachment resource ****
+*/
+
+resource "aws_iam_role_policy_attachment" "server_role_policy_attachment1" {
+  role       = "${aws_iam_role.server_role.id}"
+  policy_arn = "${data.aws_iam_policy.AmazonEC2FullAccess.arn}"
+}
+
+resource "aws_iam_role_policy_attachment" "server_role_policy_attachment2" {
+  role       = "${aws_iam_role.server_role.id}"
+  policy_arn = data.aws_iam_policy.AmazonRoute53FullAccess.arn
+}
+
+resource "aws_iam_role_policy_attachment" "server_role_policy_attachment3" {
+  role       = "${aws_iam_role.server_role.id}"
+  policy_arn = data.aws_iam_policy.AmazonS3FullAccess.arn
+}
+
+resource "aws_iam_role_policy_attachment" "server_role_policy_attachment4" {
+  role       = "${aws_iam_role.server_role.id}"
+  policy_arn = data.aws_iam_policy.IAMFullAccess.arn
+}
+
+resource "aws_iam_role_policy_attachment" "server_role_policy_attachment5" {
+  role       = "${aws_iam_role.server_role.id}"
+  policy_arn = data.aws_iam_policy.AmazonVPCFullAccess.arn
+}
+
+
+
+/* no need to create for managed policies
 
 resource "aws_iam_role_policy" "server_role_policy" {
   name   = "${var.server_name}-iam-role-policy"
@@ -65,5 +114,5 @@ data "aws_iam_policy_document" "server_role_policy" {
     ]
   }
 }
-
+*/
 ####################################### END OF SCRIPT !!! #######################################

@@ -29,7 +29,7 @@ resource "aws_instance" "server" {
   security_groups      = ["${aws_security_group.server_sg.name}"]
   user_data            = file("${var.user_data_file}")
 
-
+/*
 # Download kops-cluster-scripts from github repository to /home/ubuntu 
 #*********************************************************************
   provisioner "remote-exec" {
@@ -42,11 +42,12 @@ resource "aws_instance" "server" {
     connection {
       type        = "ssh"
       user        = "${var.server_default_user}"              
-      private_key = "${file("${var.local_key_pair}")}"    
+      #private_key = "${file("${var.local_key_pair}")}"  
+      private_key = "${file("~/Downloads/california-key-pair.pem")}" 
       host        = "${self.public_dns}"
     }
   }
-
+*/
   tags = {
     Name = "${var.server_name}"     
     OS   = "${var.server_os}"    

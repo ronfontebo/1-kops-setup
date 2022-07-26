@@ -1,14 +1,18 @@
 #!/bin/bash
 
-CLUSTER_NAME=useast1-demo.apacheclusters.com
+CLUSTER_NAME=useast1-demo.apache1clusters.com
 KOPS_STATE_STORE=apache-kops-state-bucket
 AVAILABILITY_ZONE=us-east-1a,us-east-1b,us-east-1c
 MASTER_INSTANCE_TYPE=t2.micro
 WORKER_INSTANCE_TYPE=t2.micro
 NODE_COUNT=1
-DNS_ZONE_NAME=apacheclusters.com
+HOSTED_ZONE_NAME=apache1clusters.com
 PUBLIC_KEY=kops-key.pem.pub
 #OUT_DIRECTORY=/home/ubuntu
+
+
+aws route53 create-hosted-zone --name ${HOSTED_ZONE_NAME}
+
 
 kops create cluster --yes \
  --name=${CLUSTER_NAME} \
