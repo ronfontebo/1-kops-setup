@@ -11,7 +11,9 @@ PUBLIC_KEY=kops-key.pem.pub
 #OUT_DIRECTORY=/home/ubuntu
 
 
-aws route53 create-hosted-zone --name ${HOSTED_ZONE_NAME}
+TIME=`date +%H:%M,%a-%b-%d-%y`
+
+aws route53 create-hosted-zone --name ${HOSTED_ZONE_NAME} --caller-reference ${TIME}
 
 
 kops create cluster --yes \
