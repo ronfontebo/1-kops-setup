@@ -22,6 +22,9 @@ unzip awscliv2.zip
 ./aws/install
 
 
+ssh-keygen -t rsa -N '' -f /home/ubuntu/kops-key.pem
+
+
 apt install git -y
 git clone https://github.com/ronfontebo/1-kops-setup.git
 mv 1-kops-setup/kops-cluster-scripts/demo-cluster /home/ubuntu
