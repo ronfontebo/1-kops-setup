@@ -5,6 +5,8 @@
 #   - AmazonRoute53FullAccess 
 #   - IAMFullAccess 
 #   - AmazonVPCFullAccess 
+#   - AmazonSQSFullAccess
+#   - AmazonEventBridgeFullAccess
 #===============================================================================
 
 
@@ -51,6 +53,13 @@ data "aws_iam_policy" "AmazonVPCFullAccess" {
   arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess"
 }
 
+data "aws_iam_policy" "AmazonSQSFullAccess" {
+  arn = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
+}
+
+data "aws_iam_policy" "AmazonEventBridgeFullAccess" {
+  arn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
+}
 
 /*
  *** all of the users/roles/groups to which a single policy is attached must be declared by 
@@ -64,55 +73,32 @@ resource "aws_iam_role_policy_attachment" "server_role_policy_attachment1" {
 
 resource "aws_iam_role_policy_attachment" "server_role_policy_attachment2" {
   role       = "${aws_iam_role.server_role.id}"
-  policy_arn = data.aws_iam_policy.AmazonRoute53FullAccess.arn
+  policy_arn = "${data.aws_iam_policy.AmazonRoute53FullAccess.arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "server_role_policy_attachment3" {
   role       = "${aws_iam_role.server_role.id}"
-  policy_arn = data.aws_iam_policy.AmazonS3FullAccess.arn
+  policy_arn = "${data.aws_iam_policy.AmazonS3FullAccess.arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "server_role_policy_attachment4" {
   role       = "${aws_iam_role.server_role.id}"
-  policy_arn = data.aws_iam_policy.IAMFullAccess.arn
+  policy_arn = "${data.aws_iam_policy.IAMFullAccess.arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "server_role_policy_attachment5" {
   role       = "${aws_iam_role.server_role.id}"
-  policy_arn = data.aws_iam_policy.AmazonVPCFullAccess.arn
+  policy_arn = "${data.aws_iam_policy.AmazonVPCFullAccess.arn}"
 }
 
-
-
-/* no need to create for managed policies
-
-resource "aws_iam_role_policy" "server_role_policy" {
-  name   = "${var.server_name}-iam-role-policy"
-  role   = "${aws_iam_role.server_role.id}"
-  policy = "${data.aws_iam_policy_document.server_role_policy.json}"
+resource "aws_iam_role_policy_attachment" "server_role_policy_attachment6" {
+  role       = "${aws_iam_role.server_role.id}"
+  policy_arn = "${data.aws_iam_policy.AmazonSQSFullAccess.arn}"
 }
 
-
-data "aws_iam_policy_document" "server_role_policy" {
-  statement {
-    actions = [
-      "ec2:*", 
-      "s3:*",
-      "route53:*",
-      "iam:*",
-      "vpc:*",
-    ]
-  
-    effect = "Allow"
-
-    resources = [
-      "arn:aws:ec2:::*",
-      "arn:aws:s3:::*",
-      "arn:aws:route53:::*",
-      "arn:aws:iam:::*",
-      "arn:aws:vpc:::*",
-    ]
-  }
+resource "aws_iam_role_policy_attachment" "server_role_policy_attachment7" {
+  role       = "${aws_iam_role.server_role.id}"
+  policy_arn = "${data.aws_iam_policy.AmazonEventBridgeFullAccess.arn}"
 }
-*/
+
 ####################################### END OF SCRIPT !!! #######################################

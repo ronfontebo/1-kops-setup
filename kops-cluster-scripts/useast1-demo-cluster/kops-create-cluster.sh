@@ -13,7 +13,10 @@ PUBLIC_KEY=kops-key.pem.pub
 
 TIME=`date +%H:%M,%a-%b-%d-%y`
 
-aws route53 create-hosted-zone --name ${HOSTED_ZONE_NAME} --caller-reference ${TIME}
+aws route53 create-hosted-zone \
+ --name ${HOSTED_ZONE_NAME} \
+ --caller-reference ${TIME} | jq .DelegationSet.NameServers
+
 
 
 kops create cluster --yes \
