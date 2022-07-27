@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CLUSTER_NAME=useast2-demo-cluster.apacheplayground.com
-KOPS_STATE_STORE=apache-kops-state-bucket
+KOPS_STATE_STORE=s3://apache-kops-state-bucket
 AVAILABILITY_ZONE=us-east-2a,us-east-2b,us-east-2c
 MASTER_INSTANCE_TYPE=t2.micro
 WORKER_INSTANCE_TYPE=t2.micro
