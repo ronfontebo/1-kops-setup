@@ -26,9 +26,14 @@ ssh-keygen -t rsa -N '' -f /home/ubuntu/kops-key.pem
 
 
 apt install git -y
+
+<<COMMENT
 git clone https://github.com/ronfontebo/1-kops-setup.git
-mv 1-kops-setup/kops-cluster-scripts/demo-cluster /home/ubuntu
+mv 1-kops-setup/kops-cluster-scripts/us-east1-demo-cluster /home/ubuntu
+mv 1-kops-setup/kops-cluster-scripts/us-east2-demo-cluster /home/ubuntu
 rm -rf 1-kops-setup
+COMMENT
+
 
 #sh demo-cluster/kops-create-cluster.sh
 
