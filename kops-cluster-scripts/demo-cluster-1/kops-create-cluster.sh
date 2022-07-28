@@ -1,19 +1,19 @@
 #!/bin/bash
 
 export KOPS_STATE_STORE=s3://apache-kops-state-bucket
-export CLUSTER_NAME=useast2-demo-cluster.apacheplayground.com
+export CLUSTER_NAME_1=useast2-demo-cluster.apacheplayground.com
 
 AVAILABILITY_ZONE=us-east-2a,us-east-2b,us-east-2c
 MASTER_INSTANCE_TYPE=t2.micro
 WORKER_INSTANCE_TYPE=t2.micro
-NODE_COUNT=3
+NODE_COUNT=2
 HOSTED_ZONE_NAME=apacheplayground.com
 PUBLIC_KEY=kops-key.pem.pub
 #OUT_DIRECTORY=/home/ubuntu
 
 
 kops create cluster --yes \
- --name=${CLUSTER_NAME} \
+ --name=${CLUSTER_NAME_1} \
  --cloud=aws \
  --state=${KOPS_STATE_STORE} \
  --zones=${AVAILABILITY_ZONE} \

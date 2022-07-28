@@ -1,7 +1,7 @@
 #!/bin/bash
 
 kops validate cluster \
- --name=${CLUSTER_NAME} \                            
+ --name=${CLUSTER_NAME_1} \                            
  --state=${KOPS_STATE_STORE}                  
     
       
