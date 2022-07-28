@@ -1,7 +1,8 @@
 #!/bin/bash
 
-CLUSTER_NAME=useast2-demo-cluster.apacheplayground.com
-KOPS_STATE_STORE=s3://apache-kops-state-bucket
+export KOPS_STATE_STORE=s3://apache-kops-state-bucket
+export CLUSTER_NAME=useast2-demo-cluster.apacheplayground.com
+
 AVAILABILITY_ZONE=us-east-2a,us-east-2b,us-east-2c
 MASTER_INSTANCE_TYPE=t2.micro
 WORKER_INSTANCE_TYPE=t2.micro
@@ -28,4 +29,4 @@ kops create cluster --yes \
 #terraform init
 #terraform apply -auto-approve    
       
-############################################ END OF SCRIPT!!! ################################################
+#################################### END OF SCRIPT!!! ####################################
